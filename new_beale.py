@@ -1,10 +1,9 @@
 import string
-from decipher import decode
 
 def choose_cipher():
 
     print("The Beale Cipher")
-    user_input = input("Please enter which text you would like to test. 1 for Cipher 1, 2 for Solved Cipher 2, and 3 for Cipher 3: ")
+    user_input = input("Please enter which number cipher you would like to test: ")
     print()
 
     if user_input not in ["1", "2", "3"]:
@@ -23,5 +22,27 @@ def choose_cipher():
         number_data = file2.read()
 
     print(decode(number_data, text_data))
+
+def decode(number_data, text_data):
+    words = str(text_data).split()
+    numbers = str(number_data).split(",")
+    string = ""
+    max = 0
+
+    for k in range(len(numbers)):
+        cur_num = int(numbers[k])
+        if cur_num > max:
+            max = cur_num
+
+    if len(words) > max:
+        for i in range(len(numbers)):
+            word_index = int(numbers[i])
+            word_at_index = words[word_index]
+            first_letter = word_at_index[0]
+            string = string + first_letter
+    else:
+        string = "Number of words in this text are not enough for it to qualify as the key"
+
+    return string
 
 choose_cipher()
